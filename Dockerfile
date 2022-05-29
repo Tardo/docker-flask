@@ -16,6 +16,8 @@ RUN curl -L https://raw.githubusercontent.com/tj/n/master/bin/n -o n
 RUN bash n latest
 RUN npm install --global npm
 RUN npm install --global postcss postcss-cli rollup
+RUN apt remove -y curl
+RUN apt autoremove -y
 
 COPY ./env_secrets_expand.sh /
 COPY ./docker-entrypoint.sh /
