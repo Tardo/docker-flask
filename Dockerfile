@@ -19,8 +19,10 @@ RUN npm install --global postcss postcss-cli rollup
 RUN apt remove -y curl
 RUN apt autoremove -y
 
-COPY ./inv_flask.sh /usr/local/bin/inv_flask
-RUN chmod +x /usr/local/bin/inv_flask
+COPY ./inv_poetry.sh /usr/local/bin/inv_poetry
+RUN chmod +x /usr/local/bin/inv_poetry
+COPY ./restart_workers.sh /usr/local/bin/restart_workers
+RUN chmod +x /usr/local/bin/restart_workers
 COPY ./env_secrets_expand.sh /
 COPY ./docker-entrypoint.sh /
 RUN chmod +x /docker-entrypoint.sh
