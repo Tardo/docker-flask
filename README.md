@@ -3,10 +3,12 @@
 
 This docker image is prepared to run Flask applications using gunicorn. In addition, this image provides poetry and npm with rollup and postcss.
 
+
 #### Important notes
 
-- This image is for Flask projects using poetry, supervisor and npm.
+- This image is for Flask projects using poetry, gunicorn, supervisor and npm.
 - This image doesn't come with gunicorn and supervisor installed, this must be provided by your poetry configuration.
+
 
 #### Mount points of interest
 
@@ -16,13 +18,11 @@ This docker image is prepared to run Flask applications using gunicorn. In addit
 | /root/.cache | Here is where poetry stores the packages |
 | /root/.npm | Here is where npm stores the packages |
 
+
 #### About your flask configuration
 
 Threaded mode is handled by gunicorn so you must disable `threaded` mode in the configuration of your flask application.
 
-#### Shared memory
-
-gunicorn workers uses the shared memory for temporal storage. To increase the docker shared memory available see the documentation about `shm-size` option.
 
 #### Customize poetry and npm project installation process
 
@@ -30,6 +30,7 @@ gunicorn workers uses the shared memory for temporal storage. To increase the do
 |----------|---------|---------|
 | $POETRY_INSTALL_ARGS | Empty | --no-dev  | 
 | $NPM_INSTALL_ARGS | Empty | --no-save --omit=dev |
+
 
 #### Recommended env. variables
 
@@ -39,6 +40,7 @@ gunicorn workers uses the shared memory for temporal storage. To increase the do
 | $NODE_ENV | development | production, development, testing |
 | $POETRY_NO_DEV | False | True, False |
 | $GUNICORN_PID_FILE | /tmp/gunicorn.pid | --path-- |
+
 
 #### SQLAchemy problems?
 
@@ -52,6 +54,7 @@ db = SQLAlchemy(None, engine_options={'poolclass': NullPool})
 ```
 
 More info. here: https://docs.sqlalchemy.org/en/13/core/pooling.html#using-connection-pools-with-multiprocessing-or-os-fork
+
 
 #### Execute Flask CLI commands
 
