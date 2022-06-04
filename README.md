@@ -5,9 +5,8 @@ This docker image is prepared to run Flask applications using gunicorn. In addit
 
 #### Important notes
 
-- This image is for Flask projects using poetry and npm.
-- This image doesn't come with gunicorn installed, this must be provided by your poetry configuration.
-- You probably need to change the `GUNICORN_FLASK_APP` environment variable to adjust it to how your project is defined.
+- This image is for Flask projects using poetry, supervisor and npm.
+- This image doesn't come with gunicorn and supervisor installed, this must be provided by your poetry configuration.
 
 #### Mount points of interest
 
@@ -24,16 +23,6 @@ Threaded mode is handled by gunicorn so you must disable `threaded` mode in the 
 #### Shared memory
 
 gunicorn workers uses the shared memory for temporal storage. To increase the docker shared memory available see the documentation about `shm-size` option.
-
-#### Customize gunicorn startup
-
-| ENV. VAR | DEFAULT |
-|----------|---------|
-| $GUNICORN_TIMEOUT | 200 | 
-| $GUNICORN_WORKER_CLASS | gevent |
-| $GUNICORN_KEEP_ALIVE | 5 |
-| $GUNICORN_MAX_REQUESTS | 10000 |
-| $GUNICORN_FLASK_APP | run:app |
 
 #### Customize poetry and npm project installation process
 
@@ -65,11 +54,9 @@ More info. here: https://docs.sqlalchemy.org/en/13/core/pooling.html#using-conne
 
 #### Execute Flask CLI commands
 
-A safe way to do this is:
+A safe way to do this is using the 'inv_poetry' script:
 ```bash
-docker-compose stop <FLASK_SERVICE_NAME>
-docker-compose run --rm --entrypoint="" <FLASK_SERVICE_NAME> inv_flask <COMMAND>
-docker-compose start <FLASK_SERVICE_NAME>
+docker-compose run --rm --entrypoint="" <FLASK_SERVICE_NAME> inv_poetry <COMMAND>
 ```
 ** Replace `<FLASK_SERVICE_NAME>` and `<COMMAND>`
 

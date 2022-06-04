@@ -4,5 +4,5 @@ set -e
 . /env_secrets_expand.sh
 
 cd /usr/src/app
-poetry run flask $@
+poetry run $@
 exit 0
